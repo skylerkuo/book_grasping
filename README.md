@@ -39,6 +39,9 @@ VLM 依序檢查候選 crop
 | `text_similarity.py` | 使用 sentence embedding 計算文字相似度 |
 | `vision_qa_llm.py` | 使用 VLM 讀取候選書本 crop 中的書名 |
 | `main.py` | 整合完整搜尋流程 |
+| `book_seg.pt` | yolo 書本分割模型的權重 |
+| `model_load_4b_4bit.py` | 匯入 LLM |
+
 
 ## Keyword Extraction
 
@@ -286,16 +289,105 @@ out_single_image_result/best_image.png
 out_single_image_result/final_result.json
 ```
 
-## Summary
+## 其他
 
-本系統並不完全依賴單一模型，而是採用多階段驗證流程：
+這邊指弄成單張影像推理，後續要弄到相機上就再改一下就好。
 
-```text
-LLM 理解使用者需求
-YOLO 找出候選書本
-OCR 讀取書名文字
-Embedding 進行文字相似度排序
-VLM 對高分候選進行視覺確認
+## Environment Setup
+
+本專案建議使用 Python 3.11 建立環境。Python 3.10 理論上也可能可以使用，但目前主要測試環境為 Python 3.11。
+
+### 1. 建立 Conda 環境
+
+```bash
+conda create -n book_grasping python=3.11 -y
+conda activate book_grasping
+
+python -m pip install --upgrade pip setuptools wheel
 ```
 
-透過這種方式，系統可以降低單純 OCR 錯字造成的誤判，也避免直接使用 VLM 處理整張圖片時產生不穩定或幻覺問題。
+### 2. 安裝 PyTorch
+
+請依照自己的 CUDA 版本安裝對應的 PyTorch。
+
+例如 CUDA 12.8：
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+```
+
+若不確定 CUDA 版本，可先查看：
+
+```bash
+nvidia-smi
+```
+
+### 3. 安裝 llama-cpp-python
+
+`llama-cpp-python` 請安裝 CUDA 版本，可參考官方說明：
+
+https://pypi.org/project/llama-cpp-python/
+
+安裝格式如下：
+
+```bash
+pip install llama-cpp-python \
+  --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/<cuda-version>
+```
+
+例如 CUDA 12.5：
+
+```bash
+pip install llama-cpp-python \
+  --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu125
+```
+
+若 `nvidia-smi` 顯示 CUDA 13.0，也建議可先使用 `cu125`，相容性通常較穩。
+
+### 4. 安裝 PaddleOCR
+
+
+```bash
+pip install "paddleocr[all]"
+```
+
+### 5. 安裝 YOLO 與影像處理套件
+
+```bash
+pip install ultralytics
+pip install opencv-python pillow numpy
+```
+
+### 6. 安裝 LLM / VLM 相關套件
+
+```bash
+pip install transformers accelerate safetensors sentencepiece protobuf huggingface_hub
+```
+
+### 7. 安裝 LangChain 相關套件
+
+```bash
+pip install langchain-core langchain-community
+```
+
+### 8. 安裝文字相似度模型套件
+
+```bash
+pip install sentence-transformers
+```
+
+### 9. VLM、PaddleOCR、文本嵌入模型下載
+
+這幾個模型需要先有 Hugging Face 帳號才能下載，要先去創一個帳號: https://huggingface.co/
+
+執行 main.py 會需要你去登入 Hugging Face 帳號就會自動下載模型
+
+### 10. LLM 模型下載
+
+從這下載: https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF (gemma-4-E2B-it-Q4_K_M.gguf
+ 這一個) 下載完之後放到和其他檔案同一層中就可以了
+
+
+
+
+
