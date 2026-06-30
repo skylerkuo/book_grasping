@@ -274,25 +274,6 @@ OUT_DIR = "out_single_image_result"
 
 若要更換圖片、搜尋文字或 VLM 門檻，只需要修改這些設定。
 
-## Run
-
-執行完整流程：
-
-```bash
-python main.py
-```
-
-執行後會產生：
-
-```text
-out_single_image_result/best_image.png
-out_single_image_result/final_result.json
-```
-
-## 其他
-
-這邊指弄成單張影像推理，後續要弄到相機上就再改一下就好。
-
 ## Environment Setup
 
 本專案建議使用 Python 3.11 建立環境。Python 3.10 理論上也可能可以使用，但目前主要測試環境為 Python 3.11。
@@ -386,6 +367,27 @@ pip install sentence-transformers
 
 從這下載: https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF (gemma-4-E2B-it-Q4_K_M.gguf
  這一個) 下載完之後放到和其他檔案同一層中就可以了
+
+ ## Run
+
+執行完整流程：
+
+```bash
+python main.py
+```
+
+執行後會產生：
+
+```text
+out_single_image_result/best_image.png
+out_single_image_result/final_result.json
+```
+
+## 其他
+
+這邊指弄成單張影像推理，後續要弄到相機上就再改一下就好。
+
+有問題可以直接問我因為這個環境對沒弄過的人來說有點難建。
 
 
 
