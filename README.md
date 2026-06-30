@@ -1,3 +1,5 @@
+# English version please check Read_en.md
+
 # Multi-Modal Book Search System
 
 本專案是一套多模態書籍搜尋系統。使用者可以用自然語言描述想找的書，系統會從單張書架影像中找出最可能的目標書本，並輸出該書在影像中的位置。
