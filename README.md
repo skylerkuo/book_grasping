@@ -184,7 +184,7 @@ Bonus = Overlap Ratio × Bonus Weight
 
 | Stage | Bonus Weight |
 |---|---|
-| OCR similarity | `1.0` |
+| OCR similarity | `1.00` |
 | VLM similarity | `3.0` |
 
 VLM 階段給較高權重，是因為 VLM 已經只看單本書 crop，若輸出的書名與關鍵字有字面命中，通常更值得信任。
