@@ -329,9 +329,14 @@ pip install llama-cpp-python \
 
 ### 4. 安裝 PaddleOCR
 
+可參考官方說明：
+
+https://www.paddleocr.ai/latest/en/version3.x/pipeline_usage/OCR.html
 
 ```bash
-pip install "paddleocr[all]"
+pip install "transformers>=5.10.0"
+pip install onnxruntime-gpu
+pip install paddleocr
 ```
 
 ### 5. 安裝 YOLO 與影像處理套件
