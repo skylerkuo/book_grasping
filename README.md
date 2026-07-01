@@ -333,7 +333,10 @@ pip install llama-cpp-python \
 
 https://www.paddleocr.ai/latest/en/version3.x/pipeline_usage/OCR.html
 
+下面cu126是官方定的自己不要亂改
+
 ```bash
+pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
 pip install "transformers>=5.10.0"
 pip install onnxruntime-gpu
 pip install paddleocr
